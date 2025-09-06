@@ -86,9 +86,13 @@ export default async function handler(req, res) {
     ADMIN_KEY,
   } = process.env;
 
-  // DEV fallback: tulis ke file lokal saat GITHUB_* kosong
-  const isDevLocal =
+  const onVercel = !!process.env.VERCEL;
+  const missingGit =
     !GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO || !GITHUB_FILEPATH;
+
+  // isDevLocal artinya boleh nulis ke disk hanya saat BUKAN di Vercel
+  const isDevLocal = !onVercel && missingGit;
+  !GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO || !GITHUB_FILEPATH;
   const localJsonPath = path.join(
     process.cwd(),
     "assets",
