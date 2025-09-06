@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "updatedAt": "2025-09-06T18:20:51.758Z",
+  "products": [
+    {
+      "id": "netflix",
+      "title": "Netflix Premium",
+      "logo": "/assets/img/logos/netflix_icon-1756916143802.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Sharing 1P1U ",
+          "price": 24000
+        },
+        {
+          "name": "Sharing 1P2U ",
+          "price": 15000
+        },
+        {
+          "name": "Semi Private",
+          "price": 35000
+        },
+        {
+          "name": "Private ",
+          "price": 100000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Netflix_icon.svg"
+    },
+    {
+      "id": "spotify",
+      "title": "Spotify Premium",
+      "logo": "/assets/img/logos/spotify_icon-1756916612338.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Individual Plan",
+          "price": 16000
+        },
+        {
+          "name": "Family Plan",
+          "price": 14000
+        },
+        {
+          "name": "Head Plan",
+          "price": 50000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Spotify_icon.svg"
+    },
+    {
+      "id": "disney",
+      "title": "Disney+ Hotstar",
+      "logo": "/assets/img/logos/disney_logo-1757002141697.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Sharing 6 User 1 bulan",
+          "price": 12000
+        },
+        {
+          "name": "Sharing 6 User 2 bulan",
+          "price": 22000
+        },
+        {
+          "name": "Sharing 6 User 3 bulan",
+          "price": 36000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Disney+_logo.svg"
+    },
+    {
+      "id": "youtube",
+      "title": "Youtube Premium",
+      "logo": "/assets/img/logos/youtube_logo-1757182089069.png",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Youtube  Famplan",
+          "price": 2000
+        },
+        {
+          "name": "Youtube  Indplan / Head",
+          "price": 5000
+        },
+        {
+          "name": "Youtube 3 bulan Mixplan",
+          "price": 10000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Youtube_logo.png"
+    },
+    {
+      "id": "vidio",
+      "title": "Vidio Premium",
+      "logo": "/assets/img/logos/vidio_logo-1757182344742.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Mobile Private ",
+          "price": 20000
+        },
+        {
+          "name": "All Device Private",
+          "price": 35000
+        },
+        {
+          "name": "TV Only 1 tahun",
+          "price": 5000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Vidio_logo.svg"
+    },
+    {
+      "id": "prime",
+      "title": "Amazon Prime Vidio",
+      "logo": "/assets/img/logos/amazon_prime_video_logo-1757182485473.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Private ",
+          "price": 10000
+        },
+        {
+          "name": "Sharing",
+          "price": 6000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Amazon_Prime_Video_logo.svg"
+    },
+    {
+      "id": "canva",
+      "title": "Canva Pro",
+      "logo": "/assets/img/logos/canva-logo-1757182572462.png",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Invite pro 1 bulan",
+          "price": 2000
+        },
+        {
+          "name": "Owner pro 1 bulan",
+          "price": 5000
+        },
+        {
+          "name": "Edu Lifetime ",
+          "price": 15000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Canva-Logo.png"
+    },
+    {
+      "id": "capcut",
+      "title": "Capcut Pro",
+      "logo": "/assets/img/logos/capcut-icon-1757182708374.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Private ",
+          "price": 12000
+        },
+        {
+          "name": "Sharing 3 User ",
+          "price": 6000
+        },
+        {
+          "name": "Sharing 2 User ",
+          "price": 8000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Capcut-icon.svg"
+    },
+    {
+      "id": "wetv",
+      "title": "WeTV",
+      "logo": "/assets/img/logos/wetv-1757182847086.png",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Private ",
+          "price": 18000
+        },
+        {
+          "name": "Sharing",
+          "price": 6000
+        }
+      ],
+      "undefined": "C:\\fakepath\\wetv.png"
+    }
+  ]
+}

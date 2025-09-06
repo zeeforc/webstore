@@ -1,0 +1,478 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
+}
+
+:root {
+  --primary-color: #3959f7;
+  --bar-color: #3959f7b5;
+  --secondary-color: #254eda;
+  --background-color: #0a0a0a;
+  --text-color: #fff;
+  --font-family: "Anton", sans-serif;
+  --font-family-secondary: "Montserrat", sans-serif;
+  --border-radius: 22px;
+  --box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  --border: 1px solid rgba(113, 113, 113, 0.308);
+  --border-lg: 1px solid rgba(153, 153, 153, 0.308);
+}
+
+.text-logo {
+  color: #fff;
+  font-family: var(--font-family);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-style: normal;
+  font-size: 23px;
+  text-align: center;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: #fff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: #fff;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.btn {
+  background-color: #3959f7;
+  color: #fff;
+  border: none;
+  padding: 8px 30px;
+  border-radius: 22px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  transition: 0.5s ease;
+  font-family: "Anton", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+.btn:hover {
+  background-color: #254eda;
+  color: #fff;
+  text-decoration: none;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+}
+
+/* header */
+.header {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.header-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.title-header {
+  font-size: 80px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  color: #fff;
+}
+.title-header span {
+  color: #3959f7;
+}
+
+.btn-header {
+  background: transparent;
+  border: 1px solid rgba(113, 113, 113, 0.308);
+  border-radius: 35px;
+  padding: 15px 20px;
+  text-decoration: none;
+  background: rgba(47, 47, 47, 0.549);
+  margin-bottom: 20px;
+}
+
+.btn-header .logo {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Anton", sans-serif;
+  font-weight: 300;
+  backdrop-filter: blur(10px);
+}
+
+.subtitle-header {
+  font-size: 20px;
+  margin-bottom: 40px;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+
+.btn-bottom {
+  text-decoration: none;
+  background: #3959f7;
+  color: #fff;
+  border: none;
+  padding: 12px 7%;
+  border-radius: 10px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  transition: 0.5s ease;
+  font-family: "Anton", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+.btn-bottom:hover {
+  background-color: #254eda;
+  color: #fff;
+  text-decoration: none;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+}
+
+b {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+
+#circle {
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.dot {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  /* background: #887c7c; */
+}
+
+/* main content */
+.main {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 8%;
+  /* background: #787a5a; */
+}
+
+.main-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.title-main {
+  font-size: 40px;
+  text-transform: capitalize;
+  color: #fff;
+}
+.title-main span {
+  color: #3959f7;
+}
+
+.btn-main {
+  background: transparent;
+  border: 1px solid rgba(113, 113, 113, 0.308);
+  border-radius: 35px;
+  padding: 15px 20px;
+  text-decoration: none;
+  background: rgba(47, 47, 47, 0.549);
+  margin-bottom: 20px;
+}
+
+.btn-main .logo {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Anton", sans-serif;
+  font-weight: 300;
+  backdrop-filter: blur(10px);
+}
+
+.subtitle-main {
+  font-size: 20px;
+  margin-bottom: 40px;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+
+.btn-main {
+  text-decoration: none;
+  background: #3959f7;
+  color: #fff;
+  border: none;
+  padding: 12px 7%;
+  border-radius: 10px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  transition: 0.5s ease;
+  font-family: "Anton", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+.btn-main:hover {
+  background-color: #254eda;
+  color: #fff;
+  text-decoration: none;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+}
+.btn-back {
+  text-decoration: none;
+  background: #3959f7;
+  color: #fff;
+  border: none;
+  padding: 12px 3%;
+  border-radius: 10px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  transition: 0.5s ease;
+  font-family: "Anton", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+.btn-back:hover {
+  background-color: #254eda;
+  color: #fff;
+  text-decoration: none;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+  box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
+}
+
+.card {
+  background: #1a1a1a;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  padding: 28px 22px;
+  width: 360px;
+  min-height: 450px;
+  margin: 20px auto;
+  text-align: center;
+  z-index: -1;
+}
+.badge {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  margin: -6px auto 12px;
+  background: var(--background-color);
+  border: var(--border);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.badge-wetv {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  margin: -6px auto 12px;
+  background: var(--text-color);
+  border: var(--border);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.badge img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.badge-wetv img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.title {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 22px;
+  margin: 6px 0 6px;
+}
+.underline {
+  width: 60px;
+  height: 3px;
+  border-radius: 999px;
+  margin: 10px auto 18px;
+  background: var(--primary-color);
+  opacity: 0.6;
+}
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bar-color);
+  color: var(--text-color);
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+.bar .left,
+.bar .right {
+  font-size: 12px;
+  color: var(--text-color);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  border-top: var(--border-lg);
+  font-size: 14px;
+}
+.item span {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1/2px;
+}
+.price {
+  color: var(--text-color); /* accent */
+  font-weight: 500;
+}
+
+.card-list-infor {
+  max-width: 40%;
+  background: var(--bar-color);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(134, 134, 134, 0.536);
+  box-shadow: 0px 0px 14px 0px rgba(57, 89, 247, 0.71);
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(57, 89, 247, 0.71);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(57, 89, 247, 0.71);
+}
+
+.footer {
+  height: 20rem;
+  width: 100%;
+  background: #1a1a1a;
+  border-radius: 40px 40px 0px 0px;
+  margin-top: 10%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  border: var(--border);
+}
+.card-footer{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.card-footer h3{
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #3959f7;
+  text-shadow: 0px 0px 10px rgba(57, 89, 247, 0.64) ;
+}
+.card-footer p{
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Floating WhatsApp button */
+.contact {
+  position: fixed;               /* bikin ngambang */
+  right: 20px;                   /* jarak dari kanan */
+  bottom: max(20px, env(safe-area-inset-bottom, 0px)); /* aman buat iPhone notch */
+  z-index: 9999;                 /* di atas elemen lain */
+  pointer-events: none;          /* container nggak nangkap klik... */
+}
+
+.contact .btn-back {
+  pointer-events: auto;          /* ...tapi tombolnya tetap bisa diklik */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  border-radius: 10px;
+  background: var(--secondary-color);           /* warna WA */
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .2s;
+  opacity: 0.95;
+}
+
+.contact .btn-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0,0,0,.22);
+  opacity: 1;
+}
+
+.contact .btn-back i {
+  line-height: 1;
+}
+
+/* opsi: kecilkan sedikit di layar sempit */
+@media (max-width: 480px) {
+  .contact .btn-back {
+    width: 52px; height: 52px;
+  }
+}
