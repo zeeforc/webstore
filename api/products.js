@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     : null;
 
   async function ghGet() {
-    if (!ghBase) throw new Error("GitHub envs missing, ghBase is null");
+    const r = await fetch(ghBase, { headers: ghHeaders }); // <- BUKAN { headers }
     const ghHeaders = GITHUB_TOKEN
       ? {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -48,7 +48,6 @@ export default async function handler(req, res) {
         }
       : {};
 
-    const r = await fetch(ghBase, { headers });
     if (!r.ok) throw new Error(`GitHub GET failed: ${r.status}`);
     return r.json();
   }
