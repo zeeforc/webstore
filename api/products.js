@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 export default async function handler(req, res) {
-  // (opsional) CORS aman kalau nanti beda origin
+  // --- CORS (aman kalau nanti beda origin) ---
   const origin = req.headers.origin || "*";
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Vary", "Origin");
@@ -11,6 +11,7 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-key");
   if (req.method === "OPTIONS") return res.status(204).end();
 
+  // --- ENV ---
   const {
     GITHUB_TOKEN,
     GITHUB_OWNER,
@@ -19,13 +20,14 @@ export default async function handler(req, res) {
     ADMIN_KEY,
   } = process.env;
 
-  // Deteksi lingkungan
   const onVercel = !!process.env.VERCEL;
   const missingGit =
     !GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO || !GITHUB_FILEPATH;
-  // Hanya tulis ke disk kalau DEV lokal (bukan Vercel) DAN env GitHub belum lengkap
+
+  // DEV lokal = bukan di Vercel & env GitHub belum lengkap
   const isDevLocal = !onVercel && missingGit;
 
+  // Lokasi file lokal saat dev
   const localJsonPath = path.join(
     process.cwd(),
     "assets",
@@ -33,41 +35,66 @@ export default async function handler(req, res) {
     "products.json"
   );
 
-  // Build URL GitHub hanya jika env lengkap
+  // Build URL GitHub + headers (HARUS didefinisikan sebelum dipakai)
   const ghBase = !missingGit
     ? `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILEPATH}`
     : null;
 
-  async function ghGet() {
-    const r = await fetch(ghBase, { headers: ghHeaders }); // <- BUKAN { headers }
-    const ghHeaders = GITHUB_TOKEN
-      ? {
-          Authorization: `Bearer ${GITHUB_TOKEN}`,
-          "User-Agent": "zft-store",
-          Accept: "application/vnd.github+json",
-        }
-      : {};
+  const ghHeaders = !missingGit
+    ? {
+        Authorization: `Bearer ${GITHUB_TOKEN}`, // pakai Bearer
+        "User-Agent": "zft-store",
+        Accept: "application/vnd.github+json",
+      }
+    : undefined;
 
+  async function ghGet() {
+    if (!ghBase) {
+      throw new Error(
+        "GitHub envs missing (set GITHUB_TOKEN/OWNER/REPO/FILEPATH)"
+      );
+    }
+    const r = await fetch(ghBase, { headers: ghHeaders });
     if (!r.ok) throw new Error(`GitHub GET failed: ${r.status}`);
     return r.json();
   }
 
+  // --- Handlers ---
   if (req.method === "GET") {
     try {
       if (isDevLocal) {
-        const txt = fs.readFileSync(localJsonPath, "utf8");
-        return res.status(200).json(JSON.parse(txt));
+        // DEV: baca file lokal (buat kalau belum ada)
+        try {
+          const txt = fs.readFileSync(localJsonPath, "utf8");
+          return res.status(200).json(JSON.parse(txt));
+        } catch {
+          const seed = {
+            version: 1,
+            updatedAt: new Date().toISOString(),
+            products: [],
+          };
+          fs.mkdirSync(path.dirname(localJsonPath), { recursive: true });
+          fs.writeFileSync(
+            localJsonPath,
+            JSON.stringify(seed, null, 2),
+            "utf8"
+          );
+          return res.status(200).json(seed);
+        }
       }
+
       if (missingGit) {
-        // Di Vercel tapi env GitHub belum lengkap → kasih pesan jelas
+        // Di Vercel tapi env GitHub belum lengkap
         return res.status(500).json({
           message:
             "GitHub envs missing (set GITHUB_TOKEN/OWNER/REPO/FILEPATH) atau jalankan dev lokal.",
         });
       }
+
+      // PROD via GitHub
       const j = await ghGet();
       const content = JSON.parse(
-        Buffer.from(j.content, "base64").toString("utf8")
+        Buffer.from(j.content || "", "base64").toString("utf8")
       );
       return res.status(200).json(content);
     } catch (e) {
@@ -77,13 +104,19 @@ export default async function handler(req, res) {
 
   if (req.method === "PUT") {
     try {
-      if ((req.headers["x-admin-key"] || "") !== ADMIN_KEY) {
+      // Auth admin
+      if (!ADMIN_KEY || (req.headers["x-admin-key"] || "") !== ADMIN_KEY) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-      const incoming = req.body || {};
+
+      // Body bisa string/object tergantung runtime
+      const raw = req.body;
+      const incoming =
+        typeof raw === "string" ? JSON.parse(raw || "{}") : raw || {};
       incoming.updatedAt = new Date().toISOString();
 
       if (isDevLocal) {
+        // DEV: tulis ke file lokal
         fs.mkdirSync(path.dirname(localJsonPath), { recursive: true });
         fs.writeFileSync(
           localJsonPath,
@@ -92,6 +125,7 @@ export default async function handler(req, res) {
         );
         return res.status(200).json({ ok: true, commitSha: "dev-local" });
       }
+
       if (missingGit) {
         return res.status(500).json({
           message:
@@ -99,13 +133,7 @@ export default async function handler(req, res) {
         });
       }
 
-      // Commit ke GitHub
-      const headers = {
-        Authorization: `token ${GITHUB_TOKEN}`,
-        "User-Agent": "zft-store",
-        Accept: "application/vnd.github+json",
-        "Content-Type": "application/json",
-      };
+      // PROD: commit ke GitHub Contents API
       const latest = await ghGet();
       const contentB64 = Buffer.from(
         JSON.stringify(incoming, null, 2),
@@ -114,7 +142,7 @@ export default async function handler(req, res) {
 
       const r = await fetch(ghBase, {
         method: "PUT",
-        headers,
+        headers: { ...ghHeaders, "Content-Type": "application/json" },
         body: JSON.stringify({
           message: `chore(data): update products.json at ${incoming.updatedAt}`,
           content: contentB64,
