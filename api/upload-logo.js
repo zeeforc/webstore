@@ -102,11 +102,12 @@ export default async function handler(req, res) {
   const r = await fetch(url, {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`, // <— ganti
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
       "User-Agent": "zft-store",
       Accept: "application/vnd.github+json",
       "Content-Type": "application/json",
     },
+
     body: JSON.stringify({
       message: `feat(logo): upload ${finalName}`,
       content: contentB64,
