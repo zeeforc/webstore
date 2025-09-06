@@ -41,10 +41,11 @@ export default async function handler(req, res) {
   async function ghGet() {
     if (!ghBase) throw new Error("GitHub envs missing, ghBase is null");
     const headers = {
-      Authorization: `token ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
       "User-Agent": "zft-store",
       Accept: "application/vnd.github+json",
     };
+
     const r = await fetch(ghBase, { headers });
     if (!r.ok) throw new Error(`GitHub GET failed: ${r.status}`);
     return r.json();

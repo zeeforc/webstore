@@ -102,14 +102,14 @@ export default async function handler(req, res) {
   const r = await fetch(url, {
     method: "PUT",
     headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`, // <— ganti
       "User-Agent": "zft-store",
       Accept: "application/vnd.github+json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       message: `feat(logo): upload ${finalName}`,
-      content: fileBuf.toString("base64"),
+      content: contentB64,
     }),
   });
   if (!r.ok) throw new Error(`GitHub upload failed: ${r.status}`);
