@@ -31,7 +31,7 @@
 }
 
 .navbar {
-  position: fixed;
+  position: sticky;
   width: 100%;
 }
 
@@ -617,7 +617,6 @@ img {
     padding: 24px 16px;
     margin-top: 12%;
   }
-
   /* Floating WA button – compact */
   .contact {
     right: 14px;

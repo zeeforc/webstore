@@ -1,5 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- SVG (modern browsers) -->
+  <link rel="icon" href="/assets/img/zft.png" type="image/png" />
+
+  <!-- PNG fallback -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/assets/img/zft.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/assets/img/zft.png"
+  />
+
+  <!-- iOS home screen -->
+  <link rel="apple-touch-icon" href="/assets/img/zft.png" />
+
+  <!-- (opsional) manifest untuk PWA -->
+  <link rel="manifest" href="#" />
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -28,6 +51,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <link rel="stylesheet" href="/assets/css/style.css" />
 
@@ -105,7 +130,7 @@
         <div
           class="card-list d-flex flex-wrap justify-content-center align-items-center gap-4 mt-4"
         >
-          <div class="card">
+          <div class="card" data-aos="fade-up">
             <div class="badge">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2025-09-06T18:20:51.758Z",
+  "updatedAt": "2025-09-08T07:43:42.843Z",
   "products": [
     {
       "id": "netflix",
@@ -195,6 +195,98 @@
         }
       ],
       "undefined": "C:\\fakepath\\wetv.png"
+    },
+    {
+      "id": "get contact",
+      "title": "Get Contact",
+      "logo": "/assets/img/logos/image-removebg-preview-1757316577835.png",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Private (no garansi)",
+          "price": 5000
+        },
+        {
+          "name": "Private (full garansi)",
+          "price": 10000
+        }
+      ],
+      "undefined": "C:\\fakepath\\image-removebg-preview.png"
+    },
+    {
+      "id": "viu ",
+      "title": "Viu Premium",
+      "logo": "/assets/img/logos/viu_logo-1757316873342.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Viu+ sharing",
+          "price": 12000
+        },
+        {
+          "name": "Private lifetime ",
+          "price": 15000
+        },
+        {
+          "name": "Private anlim 3 bulan",
+          "price": 3000
+        },
+        {
+          "name": "Private anlim 6 bulan",
+          "price": 5000
+        },
+        {
+          "name": "Private anlim 1 tahun",
+          "price": 10000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Viu_logo.svg"
+    },
+    {
+      "id": "chatgpt",
+      "title": "ChatGPT Plus",
+      "logo": "/assets/img/logos/chatgpt_logo-1757317139899.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Sharing (5 User)",
+          "price": 30000
+        },
+        {
+          "name": "Sharing (5 User) 3 Bulan (No Garansi)",
+          "price": 30000
+        },
+        {
+          "name": "Private ",
+          "price": 65000
+        },
+        {
+          "name": "Private 3 Bulan (Garansi 1 Bulan)",
+          "price": 160000
+        }
+      ],
+      "undefined": "C:\\fakepath\\ChatGPT_logo.svg"
+    },
+    {
+      "id": "gemini ai",
+      "title": "Gemini AI + Veo 3 + 2 TB Gdrive",
+      "logo": "/assets/img/logos/google_gemini_logo-1757317376997.svg",
+      "periodLabelLeft": "PAKET",
+      "periodLabelRight": "1 BULAN",
+      "packages": [
+        {
+          "name": "Private ",
+          "price": 8000
+        },
+        {
+          "name": "Private 3 Bulan ",
+          "price": 20000
+        }
+      ],
+      "undefined": "C:\\fakepath\\Google_Gemini_logo.svg"
     }
   ]
 }
