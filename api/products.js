@@ -27,7 +27,8 @@ export default async function handler(req, res) {
       contentType: "application/json",
       cacheControlMaxAge: 0,
       addRandomSuffix: false,
-      token: process.env.BLOB_READ_WRITE_TOKEN, // dibutuhkan saat lokal
+      allowOverwrite: true, // penting agar tidak error saat key sudah ada
+      token: process.env.BLOB_READ_WRITE_TOKEN, // diperlukan saat lokal
     });
     return seed;
   }
@@ -73,7 +74,8 @@ export default async function handler(req, res) {
         contentType: "application/json",
         cacheControlMaxAge: 0,
         addRandomSuffix: false,
-        token: process.env.BLOB_READ_WRITE_TOKEN, // dibutuhkan saat lokal
+        allowOverwrite: true, // penting agar bisa overwrite file yang sama
+        token: process.env.BLOB_READ_WRITE_TOKEN, // diperlukan saat lokal
       });
 
       return res.status(200).json({ ok: true, commitSha: "blob" });
