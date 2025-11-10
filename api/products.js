@@ -163,12 +163,84 @@
 //   return res.status(405).end("Method Not Allowed");
 // }
 
+// DARI SINIIIIII
+
 // /api/products.js
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
+
+// export default async function handler(req, res) {
+//   // CORS (biar aman kalau beda origin)
+//   const origin = req.headers.origin || "*";
+//   res.setHeader("Access-Control-Allow-Origin", origin);
+//   res.setHeader("Vary", "Origin");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-key");
+//   if (req.method === "OPTIONS") return res.status(204).end();
+
+//   const { ADMIN_KEY } = process.env; // opsional saat dev
+//   const needKey = !!ADMIN_KEY; // kalau .env punya ADMIN_KEY, aktifkan auth
+
+//   const jsonPath = path.join(process.cwd(), "assets", "data", "products.json");
+
+//   // helper: pastikan file ada
+//   function ensureSeed() {
+//     const seed = {
+//       version: 1,
+//       updatedAt: new Date().toISOString(),
+//       products: [],
+//     };
+//     fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
+//     fs.writeFileSync(jsonPath, JSON.stringify(seed, null, 2), "utf8");
+//     return seed;
+//   }
+
+//   if (req.method === "GET") {
+//     try {
+//       let txt;
+//       try {
+//         txt = fs.readFileSync(jsonPath, "utf8");
+//       } catch {
+//         return res.status(200).json(ensureSeed());
+//       }
+//       return res.status(200).json(JSON.parse(txt));
+//     } catch (e) {
+//       return res.status(500).json({ message: e.message || String(e) });
+//     }
+//   }
+
+//   if (req.method === "PUT") {
+//     try {
+//       if (needKey && (req.headers["x-admin-key"] || "") !== ADMIN_KEY) {
+//         return res.status(401).json({ message: "Unauthorized" });
+//       }
+
+//       // body bisa string/object tergantung runtime vercel dev
+//       const raw = req.body;
+//       const incoming =
+//         typeof raw === "string" ? JSON.parse(raw || "{}") : raw || {};
+//       incoming.updatedAt = new Date().toISOString();
+
+//       fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
+//       fs.writeFileSync(jsonPath, JSON.stringify(incoming, null, 2), "utf8");
+//       return res.status(200).json({ ok: true, commitSha: "dev-local" });
+//     } catch (e) {
+//       return res.status(500).json({ message: e.message || String(e) });
+//     }
+//   }
+
+//   res.setHeader("Allow", "GET, PUT");
+//   return res.status(405).end("Method Not Allowed"); 
+// }
+
+
+
+
+// /api/products.js
+import { put, list, del } from "@vercel/blob";
 
 export default async function handler(req, res) {
-  // CORS (biar aman kalau beda origin)
+  // CORS
   const origin = req.headers.origin || "*";
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Vary", "Origin");
@@ -176,32 +248,47 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-key");
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  const { ADMIN_KEY } = process.env; // opsional saat dev
-  const needKey = !!ADMIN_KEY; // kalau .env punya ADMIN_KEY, aktifkan auth
+  const { ADMIN_KEY } = process.env;
+  const needKey = !!ADMIN_KEY;
 
-  const jsonPath = path.join(process.cwd(), "assets", "data", "products.json");
+  const key = "assets/data/products.json";
 
-  // helper: pastikan file ada
-  function ensureSeed() {
+  async function ensureSeed() {
     const seed = {
       version: 1,
       updatedAt: new Date().toISOString(),
       products: [],
     };
-    fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
-    fs.writeFileSync(jsonPath, JSON.stringify(seed, null, 2), "utf8");
+    // tulis seed ke Blob jika belum ada
+    await put(key, JSON.stringify(seed, null, 2), {
+      contentType: "application/json",
+      cacheControlMaxAge: 0,
+      addRandomSuffix: false, // penting agar kunci tetap sama
+    });
     return seed;
+  }
+
+  async function readJson() {
+    // cek apakah blob ada
+    const { blobs } = await list({ prefix: key, limit: 1 });
+    if (!blobs || blobs.length === 0) {
+      return null;
+    }
+    // ambil URL lalu fetch isinya
+    const url = blobs[0].url;
+    const resp = await fetch(url, { cache: "no-store" });
+    if (!resp.ok) throw new Error(`Failed to fetch blob ${resp.status}`);
+    return await resp.json();
   }
 
   if (req.method === "GET") {
     try {
-      let txt;
-      try {
-        txt = fs.readFileSync(jsonPath, "utf8");
-      } catch {
-        return res.status(200).json(ensureSeed());
+      const data = await readJson();
+      if (!data) {
+        const seeded = await ensureSeed();
+        return res.status(200).json(seeded);
       }
-      return res.status(200).json(JSON.parse(txt));
+      return res.status(200).json(data);
     } catch (e) {
       return res.status(500).json({ message: e.message || String(e) });
     }
@@ -213,15 +300,18 @@ export default async function handler(req, res) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
-      // body bisa string/object tergantung runtime vercel dev
       const raw = req.body;
       const incoming =
         typeof raw === "string" ? JSON.parse(raw || "{}") : raw || {};
       incoming.updatedAt = new Date().toISOString();
 
-      fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
-      fs.writeFileSync(jsonPath, JSON.stringify(incoming, null, 2), "utf8");
-      return res.status(200).json({ ok: true, commitSha: "dev-local" });
+      await put(key, JSON.stringify(incoming, null, 2), {
+        contentType: "application/json",
+        cacheControlMaxAge: 0,
+        addRandomSuffix: false, // selalu tulis ke kunci yang sama
+      });
+
+      return res.status(200).json({ ok: true });
     } catch (e) {
       return res.status(500).json({ message: e.message || String(e) });
     }
@@ -230,3 +320,4 @@ export default async function handler(req, res) {
   res.setHeader("Allow", "GET, PUT");
   return res.status(405).end("Method Not Allowed");
 }
+
