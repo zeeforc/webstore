@@ -47,64 +47,65 @@
           wrap.className = "card p-3 mb-3";
           wrap.innerHTML = `
             <div class="row g-2">
-                <div class="col-md-3">
+              <div class="col-md-3">
                 <input class="form-control" value="${
                   p.id || ""
                 }" placeholder="id unik" data-k="id" data-i="${i}">
-                </div>
-                <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
                 <input class="form-control" value="${
                   p.title || ""
                 }" placeholder="title" data-k="title" data-i="${i}">
-                </div>
-                <div class="col-md-5 d-flex gap-2">
+              </div>
+              <div class="col-md-5 d-flex gap-2">
                 <input class="form-control" value="${
                   p.logo || ""
-                }" placeholder="logo URL (/assets/img/logos/...)" data-k="logo" data-i="${i}">
-                </div>
+                }" placeholder="logo URL" data-k="logo" data-i="${i}">
+              </div>
 
-                <!-- ====== Upload logo UI ====== -->
-                <div class="col-md-12 d-flex align-items-center gap-2 mt-2">
+              <!-- Upload logo UI -->
+              <div class="col-md-12 d-flex align-items-center gap-2 mt-2">
                 <input type="file" accept=".png,.jpg,.jpeg,.svg" class="form-control" data-act="pick-logo" data-i="${i}" style="max-width:420px;">
                 <button class="btn btn-outline-dark" data-act="upload-logo" data-i="${i}">Upload logo</button>
                 <small class="text-muted">Max 2MB • .svg .png .jpg</small>
-                </div>
-                <!-- ============================ -->
+              </div>
             </div>
 
             <div class="mt-3">
-                <h6 class="mb-2">Packages</h6>
-                <div>${(p.packages || [])
+              <h6 class="mb-2">Packages</h6>
+              <div>
+                ${(p.packages || [])
                   .map(
                     (pkg, j) => `
-                    <div class="row g-2 align-items-center mb-2">
+                  <div class="row g-2 align-items-center mb-2">
                     <div class="col-md-8">
-                        <input class="form-control" value="${
-                          pkg.name || ""
-                        }" placeholder="name" data-k="pkg-name" data-i="${i}" data-j="${j}">
+                      <input class="form-control" value="${
+                        pkg.name || ""
+                      }" placeholder="name" data-k="pkg-name" data-i="${i}" data-j="${j}">
                     </div>
                     <div class="col-md-3">
-                        <input type="number" class="form-control" value="${
-                          pkg.price || 0
-                        }" placeholder="price" data-k="pkg-price" data-i="${i}" data-j="${j}">
+                      <input type="number" class="form-control" value="${
+                        pkg.price || 0
+                      }" placeholder="price" data-k="pkg-price" data-i="${i}" data-j="${j}">
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-outline-danger" data-act="del-pkg" data-i="${i}" data-j="${j}">×</button>
+                      <button class="btn btn-outline-danger" data-act="del-pkg" data-i="${i}" data-j="${j}">×</button>
                     </div>
-                    </div>
+                  </div>
                 `
                   )
-                  .join("")}</div>
-                <button class="btn btn-sm btn-outline-primary" data-act="add-pkg" data-i="${i}">+ Add package</button>
+                  .join("")}
+              </div>
+              <button class="btn btn-sm btn-outline-primary" data-act="add-pkg" data-i="${i}">+ Add package</button>
             </div>
 
             <div class="mt-2 d-flex justify-content-between">
-                <button class="btn btn-sm btn-outline-danger" data-act="del" data-i="${i}">Delete product</button>
-                <small class="text-muted">Preview logo: <code>${
-                  p.logo || ""
-                }</code></small>
+              <button class="btn btn-sm btn-outline-danger" data-act="del" data-i="${i}">Delete product</button>
+              <small class="text-muted">Preview logo: <code>${
+                p.logo || ""
+              }</code></small>
             </div>
-            `;
+          `;
           editor.appendChild(wrap);
         });
       };
@@ -189,7 +190,7 @@
     </script>
 
     <script>
-      // ===== helper: file -> base64 (tanpa prefix "data:") =====
+      // helper file ke base64 tanpa prefix data
       const toBase64 = (file) =>
         new Promise((resolve, reject) => {
           const r = new FileReader();
@@ -197,20 +198,15 @@
             const result = String(r.result || "");
             if (!result.startsWith("data:"))
               return reject(new Error("Invalid data URL"));
-
             const comma = result.indexOf(",");
             const header = result.slice(0, comma);
             const payload = result.slice(comma + 1);
-
-            // kalau sudah base64, langsung pakai
             if (header.includes(";base64")) return resolve(payload);
-
-            // kalau bukan base64 (umum di SVG): payload URL-encoded -> convert ke base64
             try {
-              const raw = decodeURIComponent(payload); // dari %3Csvg%3E...
-              const b64 = btoa(raw); // encode base64
+              const raw = decodeURIComponent(payload);
+              const b64 = btoa(raw);
               resolve(b64);
-            } catch (e) {
+            } catch {
               reject(new Error("Failed to convert to base64"));
             }
           };
@@ -218,8 +214,7 @@
           r.readAsDataURL(file);
         });
 
-      // ===== simpan file yang dipilih per-index produk =====
-      const pickedFiles = {}; // key: index produk -> File
+      const pickedFiles = {};
 
       editor.addEventListener("change", (e) => {
         if (e.target.dataset.act === "pick-logo") {
@@ -227,26 +222,11 @@
           const f = e.target.files?.[0];
           if (!f) return;
           pickedFiles[i] = f;
-
-          // Prefill URL (tebakan awal) biar user lihat dulu
-          const ext = (f.name.match(/\.[^.]+$/)?.[0] || "").toLowerCase();
-          const base = f.name.replace(/\.[^.]+$/, "");
-          const slug = base
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-+|-+$/g, "");
-          const guess = `/assets/img/logos/${slug}${ext}`;
-
-          const input = document.querySelector(
-            `input[data-k="logo"][data-i="${i}"]`
-          );
-          if (input) input.value = guess;
-
           status.textContent = `Selected: ${f.name}`;
+          // tidak lagi memprefill path assets lokal
         }
       });
 
-      // klik tombol Upload logo
       editor.addEventListener("click", async (e) => {
         const act = e.target.dataset.act;
         if (act !== "upload-logo") return;
@@ -260,11 +240,11 @@
           return;
         }
         if (!["image/png", "image/jpeg", "image/svg+xml"].includes(file.type)) {
-          status.textContent = "Tipe file harus PNG/JPG/SVG.";
+          status.textContent = "Tipe file harus PNG atau JPG atau SVG.";
           return;
         }
         if (file.size > 2 * 1024 * 1024) {
-          status.textContent = "File terlalu besar (>2MB).";
+          status.textContent = "File terlalu besar lebih dari 2MB.";
           return;
         }
 
@@ -274,7 +254,10 @@
 
           const res = await fetch("/api/upload-logo", {
             method: "POST",
-            headers: { "content-type": "application/json", "x-admin-key": key },
+            headers: {
+              "content-type": "application/json",
+              "x-admin-key": key,
+            },
             body: JSON.stringify({
               filename: file.name,
               mime: file.type,
@@ -289,23 +272,20 @@
             return;
           }
 
-          // set path logo ke produk, render ulang
-          // set state
-          state.products[i].logo = json.path;
+          // simpan url publik dari Vercel Blob
+          state.products[i].logo = json.url;
           state.updatedAt = new Date().toISOString();
 
-          // patch langsung ke input biar user lihat tanpa re-render penuh
           const logoInput = document.querySelector(
             `input[data-k="logo"][data-i="${i}"]`
           );
           if (logoInput) {
-            logoInput.value = json.path; // auto-keisi dari server
-            logoInput.readOnly = true; // opsional: kunci biar ga keubah tak sengaja
-            logoInput.classList.add("bg-light"); // biar keliatan locked
+            logoInput.value = json.url;
+            logoInput.readOnly = true;
+            logoInput.classList.add("bg-light");
           }
 
-          // jangan render() di sini supaya file picker/pickedFiles tidak ke-reset
-          status.textContent = "Upload sukses ✓ → " + json.path;
+          status.textContent = "Upload sukses ✓ → " + json.url;
         } catch (err) {
           status.textContent = "Upload error: " + err.message;
         }
