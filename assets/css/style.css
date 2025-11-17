@@ -504,8 +504,8 @@ b {
 .card-footer h3 {
   text-transform: uppercase;
   font-weight: 700;
-  color: #3959f7;
-  text-shadow: 0px 0px 10px rgba(57, 89, 247, 0.64);
+  color: var(--text-color);
+  text-shadow: 0px 0px 10px rgba(222, 222, 222, 0.64);
 }
 .card-footer p {
   font-size: 1.2rem;
