@@ -505,7 +505,7 @@ b {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--text-color);
-  text-shadow: 0px 0px 10px rgba(222, 222, 222, 0.64);
+  text-shadow: 0px 0px 10px rgba(222, 222, 222, 0.24);
 }
 .card-footer p {
   font-size: 1.2rem;
