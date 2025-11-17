@@ -88,14 +88,16 @@
           </a>
         </div>
         <h1 class="title-header">
-          Get Your <span>Premium Apps</span> for <br />
-          Your Productivity
+          <!-- Get Your <span>Premium Apps</span> for <br />
+          Your Productivity -->
+          Dapatkan <span>Aplikasi Premium</span> Anda untuk <br />
+          Peningkatan Produktivitas Anda
         </h1>
         <p class="subtitle-header">
-          Explore your world more freely without obstacles with <br />
-          <b>a cheap and safe premium subscription.</b>
+          Jelajahi dunia Anda dengan lebih bebas tanpa hambatan dengan<br />
+          <b>langganan premium yang murah dan aman.</b>
         </p>
-        <a href="#main" class="btn-bottom">Get Now!</a>
+        <a href="#main" class="btn-bottom">Dapetin Sekarang!</a>
       </div>
     </header>
 
@@ -109,9 +111,9 @@
       <div
         class="main-content d-flex flex-column justify-content-start align-items-center text-center p-4"
       >
-        <h1 class="title-main">Apps Premium List</h1>
+        <h1 class="title-main">List Applikasi Premium</h1>
         <p class="subtitle-main">
-          Get premium applications at special prices just for you
+          Dapatkan aplikasi premium dengan harga spesial khusus untuk Anda.
         </p>
 
         <!-- List produk dinamis -->
@@ -132,11 +134,11 @@
         <div
           class="card-infor d-flex flex-column justify-content-center align-items-center text-center p-4"
         >
-          <h2 class="title-infor">Why Choose Us?</h2>
+          <h2 class="title-infor">Kenapa harus pilih kami?</h2>
           <p class="subtitle-infor">
-            We provide premium applications at affordable prices that are
-            guaranteed to be safe to use. We also offer a fast warranty order
-            process.
+            Kami menyediakan aplikasi premium dengan harga terjangkau yang
+            dijamin aman untuk digunakan. Kami juga menawarkan proses klaim
+            garansi yang cepat.
           </p>
         </div>
 
@@ -154,10 +156,10 @@
             <div
               class="warranty-title dflex flex-column justify-content-flex-start align-items-start text-start"
             >
-              <h3>Important Information</h3>
+              <h3>Informasi Penting!</h3>
               <p>
-                Warranty process maximum 2 x 24 hours full warranty
-                <b>(as long as the method is still available)</b>
+                Proses garansi maksimal 3 x 24 jam garansi penuh
+                <b>(selama metode tersebut masih tersedia)</b>
               </p>
             </div>
           </div>
@@ -231,10 +233,10 @@
       class="footer d-flex flex-column justify-content-flex-start align-items-center text-center p-5"
     >
       <div class="card-footer">
-        <h5>Please check the stock with the admin before ordering!</h5>
-        <h3>Prices are subject to change at any time.</h3>
-        <p>Thank you for visiting this page</p>
-        <a href="#home" class="btn-back">Back to Top</a>
+        <h5>Silakan periksa ketersediaan stok dengan admin sebelum memesan!</h5>
+        <h3>Harga dapat berubah sewaktu-waktu.</h3>
+        <p>Terima kasih telah mengunjungi halaman ini</p>
+        <a href="#home" class="btn-back">Kembali ke home</a>
       </div>
     </footer>
 
@@ -270,7 +272,7 @@
         style: "currency",
         currency: "IDR",
         minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+        maximumFractionDigits: 0,
       });
 
       const $list = document.getElementById("product-list");
@@ -282,15 +284,20 @@
         const title = p.title || p.id || "Product";
         const logo = p.logo || "/assets/img/zft.png"; // fallback kecil
 
-        const items = (p.packages || []).map(pkg => {
-          const name = pkg.name || "";
-          const price = typeof pkg.price === "number" ? rupiah.format(pkg.price) : String(pkg.price || "");
-          return `
+        const items = (p.packages || [])
+          .map((pkg) => {
+            const name = pkg.name || "";
+            const price =
+              typeof pkg.price === "number"
+                ? rupiah.format(pkg.price)
+                : String(pkg.price || "");
+            return `
             <li class="item">
               <span>${name}</span>
               <span class="price">${price}</span>
             </li>`;
-        }).join("");
+          })
+          .join("");
 
         return `
           <div class="card" data-aos="fade-up">
@@ -306,7 +313,10 @@
             </div>
 
             <ul class="list">
-              ${items || '<li class="item"><span>Belum ada paket</span><span class="price">-</span></li>'}
+              ${
+                items ||
+                '<li class="item"><span>Belum ada paket</span><span class="price">-</span></li>'
+              }
             </ul>
           </div>
         `;
