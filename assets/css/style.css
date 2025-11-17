@@ -775,6 +775,10 @@ img {
   .contact-mobile .btn-back {
     display: none;
   }
+    .payment-item img {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 /* ---------- 769px – 1024px (tablets landscape & small laptops) ---------- */
