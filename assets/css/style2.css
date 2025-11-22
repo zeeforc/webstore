@@ -1,0 +1,11 @@
+.main-container .header .card {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  width: 100%;
+}
+
+.card .form-control {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #444;
+}

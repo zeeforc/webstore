@@ -658,7 +658,7 @@ b {
   color: #ffffff;
 }
 
-.main-container .header .card {
+.main-container > .header > .card {
   background-color: #1f1f1f;
   color: #ffffff;
   width: 100%;
