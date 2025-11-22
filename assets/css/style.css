@@ -658,6 +658,7 @@ b {
 
 .card {
   background-color: #1f1f1f;
+  color: #ffffff;
 }
 
 .card .form-control {
