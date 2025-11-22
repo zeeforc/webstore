@@ -638,7 +638,6 @@ b {
   z-index: 100;
   border-radius: 8px;
   width: 100%;
-  max-width: 900px;
   background: #121212;
   padding: 10px;
   display: flex;
