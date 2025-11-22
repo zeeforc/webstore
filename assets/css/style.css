@@ -634,7 +634,7 @@ b {
   justify-content: end;
 }
 
-.content-products {
+/* .content-products {
   border-radius: 8px;
   width: 100%;
   max-width: 900px;
@@ -666,7 +666,7 @@ b {
   background-color: #1f1f1f;
   color: #ffffff;
   border: 1px solid #444;
-}
+} */
 
 /* opsi: kecilkan sedikit di layar sempit */
 @media (max-width: 480px) {
