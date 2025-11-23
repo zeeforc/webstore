@@ -24,10 +24,13 @@
               placeholder="Masukkan ADMIN_KEY"
             />
           </div>
-          <div class="item-button d-flex gap-2">
-            <button id="btnLoad" class="btn btn-secondary">Load</button>
-            <button id="btnAdd" class="btn btn-primary">Add Product</button>
-            <button id="btnSave" class="btn btn-success">Save</button>
+          <div class="item-button">
+            <button id="btnLoad" class="btn-b">Load</button>
+            <button id="btnAdd" class="btn-b">Add</button>
+            <button id="btnSave" class="btn-b">Save</button>
+            <button id="btnLoad" class="btn-a">Load</button>
+            <button id="btnAdd" class="btn-a">Add Product</button>
+            <button id="btnSave" class="btn-a">Save</button>
           </div>
         </div>
         <div class="content-products">
@@ -73,8 +76,8 @@
               <!-- Upload logo UI -->
               <div class="col-md-12 d-flex align-items-center gap-2 mt-2">
                 <input type="file" accept=".png,.jpg,.jpeg,.svg" class="form-control" data-act="pick-logo" data-i="${i}" style="max-width:420px;">
-                <button class="btn btn-outline-dark" data-act="upload-logo" data-i="${i}">Upload logo</button>
-                <small class="text-muted">Max 2MB • .svg .png .jpg</small>
+                <button class="btn btn-outline-dark" data-act="upload-logo" data-i="${i}">Upload</button>
+                <!-- <small class="text-muted">Max 2MB • .svg .png .jpg</small> -->
               </div>
             </div>
 
@@ -106,7 +109,7 @@
               <button class="btn btn-sm btn-outline-primary" data-act="add-pkg" data-i="${i}">+ Add package</button>
             </div>
 
-            <div class="mt-2 d-flex justify-content-between">
+            <div class="mt-4 d-flex justify-content-between">
               <button class="btn btn-sm btn-outline-danger" data-act="del" data-i="${i}">Delete product</button>
             </div>
           `;
