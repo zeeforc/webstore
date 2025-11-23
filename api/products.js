@@ -12,8 +12,18 @@ export default async function handler(req, res) {
 
   const { ADMIN_KEY } = process.env;
   const needKey = !!ADMIN_KEY;
+  const keyHeader = (req.headers["x-admin-key"] || "").toString();
 
   const key = "assets/data/products.json";
+
+  // ==== PROTECT: semua request selain OPTIONS butuh ADMIN_KEY kalau di-set ====
+  if (needKey && req.method !== "OPTIONS") {
+    if (!keyHeader || keyHeader !== ADMIN_KEY) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: invalid or missing admin key" });
+    }
+  }
 
   // ==== helper: buat file awal kalau belum ada ====
   async function ensureSeed() {
@@ -23,12 +33,12 @@ export default async function handler(req, res) {
       products: [],
     };
     await put(key, JSON.stringify(seed, null, 2), {
-      access: "public", // wajib untuk blob publik
+      access: "public",
       contentType: "application/json",
       cacheControlMaxAge: 0,
       addRandomSuffix: false,
-      allowOverwrite: true, // penting agar tidak error saat key sudah ada
-      token: process.env.BLOB_READ_WRITE_TOKEN, // diperlukan saat lokal
+      allowOverwrite: true,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
     return seed;
   }
@@ -60,22 +70,18 @@ export default async function handler(req, res) {
   // ==== PUT ====
   if (req.method === "PUT") {
     try {
-      if (needKey && (req.headers["x-admin-key"] || "") !== ADMIN_KEY) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-
       const raw = req.body;
       const incoming =
         typeof raw === "string" ? JSON.parse(raw || "{}") : raw || {};
       incoming.updatedAt = new Date().toISOString();
 
       await put(key, JSON.stringify(incoming, null, 2), {
-        access: "public", // wajib diset public
+        access: "public",
         contentType: "application/json",
         cacheControlMaxAge: 0,
         addRandomSuffix: false,
-        allowOverwrite: true, // penting agar bisa overwrite file yang sama
-        token: process.env.BLOB_READ_WRITE_TOKEN, // diperlukan saat lokal
+        allowOverwrite: true,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
       });
 
       return res.status(200).json({ ok: true, commitSha: "blob" });
