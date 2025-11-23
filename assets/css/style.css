@@ -309,7 +309,7 @@ b {
   min-height: 450px;
   margin: 20px auto;
   text-align: center;
-  z-index: -1;
+  z-index: auto;
 }
 .badge {
   width: 64px;
