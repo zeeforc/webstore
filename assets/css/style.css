@@ -183,7 +183,6 @@ b {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  /* background: #887c7c; */
 }
 
 /* main content */
@@ -194,7 +193,6 @@ b {
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 8%;
-  /* background: #787a5a; */
 }
 
 .main-content {
@@ -393,7 +391,7 @@ b {
   letter-spacing: 1/2px;
 }
 .price {
-  color: var(--text-color); /* accent */
+  color: var(--text-color);
   font-weight: 500;
 }
 
@@ -427,7 +425,7 @@ b {
   display: block;
   width: 60px;
   height: 3px;
-  background: #6c63ff; /* garis bawah ungu */
+  background: #6c63ff;
   margin: 8px auto 0;
   border-radius: 2px;
 }
@@ -437,7 +435,6 @@ b {
   justify-content: space-around;
   gap: 1rem;
   width: 70%;
-  /* background: #8c6767; */
 }
 .payment-text {
   display: flex;
@@ -456,7 +453,6 @@ b {
   height: 80px;
   border: 1px solid var(--secondary-color);
   transition: transform 0.3s ease;
-  /* transition: box-shadow 0.3s ease; */
 }
 
 .payment-item:hover {
@@ -514,24 +510,21 @@ b {
 
 /* Floating WhatsApp button */
 .contact {
-  position: fixed; /* bikin ngambang */
-  right: 20px; /* jarak dari kanan */
-  bottom: max(
-    20px,
-    env(safe-area-inset-bottom, 0px)
-  ); /* aman buat iPhone notch */
-  z-index: 9999; /* di atas elemen lain */
-  pointer-events: none; /* container nggak nangkap klik... */
+  position: fixed;
+  right: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 9999;
+  pointer-events: none;
 }
 
 .contact .btn-back {
-  pointer-events: auto; /* ...tapi tombolnya tetap bisa diklik */
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 8px 15px;
   border-radius: 10px;
-  background: var(--secondary-color); /* warna WA */
+  background: var(--secondary-color);
   color: #fff;
   text-decoration: none;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
@@ -549,26 +542,23 @@ b {
   line-height: 1;
 }
 .contact-mobile {
-  position: fixed; /* bikin ngambang */
-  right: 20px; /* jarak dari kanan */
-  bottom: max(
-    20px,
-    env(safe-area-inset-bottom, 0px)
-  ); /* aman buat iPhone notch */
-  z-index: 9999; /* di atas elemen lain */
-  pointer-events: none; /* container nggak nangkap klik... */
+  position: fixed;
+  right: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 9999;
+  pointer-events: none;
   display: none;
 }
 
 .contact-mobile .btn-back {
-  pointer-events: auto; /* ...tapi tombolnya tetap bisa diklik */
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  background: var(--secondary-color); /* warna WA */
+  background: var(--secondary-color);
   color: #fff;
   text-decoration: none;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
@@ -670,6 +660,8 @@ b {
   border: 1px solid #444;
 }
 
+/* End admin panel */
+
 /* opsi: kecilkan sedikit di layar sempit */
 @media (max-width: 480px) {
   .contact .btn-back {
@@ -693,7 +685,7 @@ img {
 @media (max-width: 992px) {
   .header {
     padding-top: 64px;
-  } /* ruang untuk navbar di layar kecil */
+  }
 }
 
 /* ---------- ≤ 480px (small phones) ---------- */
@@ -1018,6 +1010,87 @@ img {
   }
   .payment-methods .title {
     font-size: 1.75rem;
+  }
+}
+
+/* ---------- Responsive: Admin Panel ---------- */
+
+/* Tablet & bawah (≤ 768px) */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 16px 12px;
+  }
+
+  .main-container .header {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .main-container .header .form-input-key {
+    width: 100%;
+    padding: 16px 14px;
+  }
+
+  .content-products {
+    padding: 12px;
+    align-items: stretch;
+  }
+
+  .content-products #status {
+    width: 100%;
+    text-align: left;
+  }
+
+  .main-container > .header > .card {
+    width: 100%;
+  }
+}
+
+/* Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .main-container {
+    padding: 12px 10px;
+  }
+
+  .main-container .header {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .main-container .header .form-input-key {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .input-key {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .item-button {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .item-button .btn,
+  .item-button .btn-back {
+    width: 100%;
+    text-align: center;
+  }
+
+  .content-products {
+    padding: 10px 8px;
+    gap: 0.75rem;
+  }
+
+  .content-products #status {
+    font-size: 0.85rem;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .card .form-control {
+    font-size: 0.9rem;
   }
 }
 

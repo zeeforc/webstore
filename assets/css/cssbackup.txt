@@ -16,7 +16,8 @@
   --font-family-secondary: "Montserrat", sans-serif;
   --border-radius: 22px;
   --box-shadow: 0px 0px 17px 0px rgba(57, 89, 247, 0.64);
-  --border: 1px solid rgba(113, 113, 113, 0.308);
+  --box-shadow-2: 0px 0px 4px 0px rgba(251, 251, 251, 0.64);
+  --border: 1px solid rgba(62, 62, 62, 0.308);
   --border-lg: 1px solid rgba(153, 153, 153, 0.308);
 }
 
@@ -31,7 +32,7 @@
 }
 
 .navbar {
-  position: fixed;
+  position: sticky;
   width: 100%;
 }
 
@@ -136,7 +137,7 @@ body {
   background: #3959f7;
   color: #fff;
   border: none;
-  padding: 12px 7%;
+  padding: 12px 2%;
   border-radius: 10px;
   font-weight: normal;
   cursor: pointer;
@@ -406,6 +407,81 @@ b {
   -moz-box-shadow: 0px 0px 14px 0px rgba(57, 89, 247, 0.71);
 }
 
+.payment-methods {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.payment-methods .title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.payment-methods .title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #6c63ff; /* garis bawah ungu */
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.payment-logo {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  width: 70%;
+  /* background: #8c6767; */
+}
+.payment-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+.payment-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--text-color);
+  padding: 1rem;
+  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid var(--secondary-color);
+  transition: transform 0.3s ease;
+  /* transition: box-shadow 0.3s ease; */
+}
+
+.payment-item:hover {
+  box-shadow: var(--box-shadow-2);
+  transform: scale(1.1);
+}
+.payment-choice:hover p {
+  border: none;
+  color: var(--text-color);
+  transition: 0.3s ease-in-out;
+}
+
+.payment-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.payment-text {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #cbcbcb;
+  font-family: "Poppins", sans-serif;
+}
+
 .footer {
   height: 20rem;
   width: 100%;
@@ -415,7 +491,7 @@ b {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   border: var(--border);
 }
-.card-footer{
+.card-footer {
   height: 100%;
   width: 100%;
   display: flex;
@@ -425,54 +501,532 @@ b {
   text-align: center;
 }
 
-.card-footer h3{
+.card-footer h3 {
   text-transform: uppercase;
   font-weight: 700;
-  color: #3959f7;
-  text-shadow: 0px 0px 10px rgba(57, 89, 247, 0.64) ;
+  color: var(--text-color);
+  text-shadow: 0px 0px 10px rgba(222, 222, 222, 0.24);
 }
-.card-footer p{
+.card-footer p {
   font-size: 1.2rem;
   font-weight: 700;
 }
 
 /* Floating WhatsApp button */
 .contact {
-  position: fixed;               /* bikin ngambang */
-  right: 20px;                   /* jarak dari kanan */
-  bottom: max(20px, env(safe-area-inset-bottom, 0px)); /* aman buat iPhone notch */
-  z-index: 9999;                 /* di atas elemen lain */
-  pointer-events: none;          /* container nggak nangkap klik... */
+  position: fixed; /* bikin ngambang */
+  right: 20px; /* jarak dari kanan */
+  bottom: max(
+    20px,
+    env(safe-area-inset-bottom, 0px)
+  ); /* aman buat iPhone notch */
+  z-index: 9999; /* di atas elemen lain */
+  pointer-events: none; /* container nggak nangkap klik... */
 }
 
 .contact .btn-back {
-  pointer-events: auto;          /* ...tapi tombolnya tetap bisa diklik */
+  pointer-events: auto; /* ...tapi tombolnya tetap bisa diklik */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 8px 15px;
   border-radius: 10px;
-  background: var(--secondary-color);           /* warna WA */
+  background: var(--secondary-color); /* warna WA */
   color: #fff;
   text-decoration: none;
-  box-shadow: 0 12px 24px rgba(0,0,0,.18);
-  transition: transform .15s ease, box-shadow .15s ease, opacity .2s;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s;
   opacity: 0.95;
 }
 
 .contact .btn-back:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 28px rgba(0,0,0,.22);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
   opacity: 1;
 }
 
 .contact .btn-back i {
   line-height: 1;
 }
+.contact-mobile {
+  position: fixed; /* bikin ngambang */
+  right: 20px; /* jarak dari kanan */
+  bottom: max(
+    20px,
+    env(safe-area-inset-bottom, 0px)
+  ); /* aman buat iPhone notch */
+  z-index: 9999; /* di atas elemen lain */
+  pointer-events: none; /* container nggak nangkap klik... */
+  display: none;
+}
+
+.contact-mobile .btn-back {
+  pointer-events: auto; /* ...tapi tombolnya tetap bisa diklik */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: var(--secondary-color); /* warna WA */
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s;
+  opacity: 0.95;
+}
+
+.contact-mobile .btn-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
+  opacity: 1;
+}
+
+.contact-mobile .btn-back i {
+  line-height: 1;
+}
+
+/* Admin panel */
+.main-container {
+  border-radius: 20px;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.header {
+  border-radius: 12px;
+  margin-bottom: 30px;
+  text-align: center;
+  justify-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header .form-input-key {
+  width: 60%;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1f1f1f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-key {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.item-button {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.content-products {
+  z-index: 100;
+  border-radius: 8px;
+  width: 100%;
+  background: #121212;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  color: #ffffff;
+}
+
+.content-products #status {
+  border-radius: 8px;
+  width: fit-content;
+  padding: 10px;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+.main-container > .header > .card {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  width: 100%;
+}
+
+.card .form-control {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+/* End admin panel */
 
 /* opsi: kecilkan sedikit di layar sempit */
 @media (max-width: 480px) {
   .contact .btn-back {
-    width: 52px; height: 52px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* ===========================
+   RESPONSIVE BREAKPOINTS
+   (ukuran-only; no color changes)
+   =========================== */
+
+/* Base tweak */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* biar konten gak ketiban navbar fixed */
+@media (max-width: 992px) {
+  .header {
+    padding-top: 64px;
+  } /* ruang untuk navbar di layar kecil */
+}
+
+/* ---------- ≤ 480px (small phones) ---------- */
+@media (max-width: 480px) {
+  .title-header {
+    font-size: 36px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .subtitle-header {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  .btn-bottom {
+    padding: 10px 18px;
+    border-radius: 10px;
+  }
+
+  .main {
+    padding-top: 56px;
+  }
+  .main-content {
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title-main {
+    font-size: 28px;
+  }
+  .subtitle-main {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 330px;
+    padding: 20px 16px;
+    min-height: unset;
+    margin: 14px auto;
+  }
+  .badge,
+  .badge-wetv {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+  }
+  .badge img,
+  .badge-wetv img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+  .bar {
+    padding: 10px 12px;
+  }
+  .item {
+    padding: 10px 4px;
+    font-size: 13px;
+  }
+  .item span {
+    font-size: 13px;
+  }
+
+  .card-list-infor {
+    max-width: 100%;
+    width: 100%;
+    padding: 16px;
+  }
+  .card-infor {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .footer {
+    height: auto;
+    padding: 24px 16px;
+    margin-top: 12%;
+  }
+  /* Floating WA button – compact */
+  .contact {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    display: none;
+  }
+  .contact .btn-back {
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: none;
+  }
+  .contact-mobile {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    display: block;
+  }
+
+  .payment-methods {
+    width: 100%;
+    padding: 1.25rem;
+  }
+  .payment-methods .title {
+    font-size: 1.25rem;
+  }
+  .payment-logo {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .payment-choice {
+    margin: 6px;
+  }
+  .payment-item {
+    width: 72px;
+    height: 72px;
+    padding: 0.75rem;
+  }
+  .payment-item img {
+    width: 48px;
+    height: 48px;
+  }
+  .payment-text {
+    margin-top: 6px;
+  }
+  .payment-text p {
+    font-size: 0.8rem;
+  }
+}
+
+/* ---------- 481px – 768px (phones besar & small tablets) ---------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .title-header {
+    font-size: 48px;
+    line-height: 1.1;
+  }
+  .subtitle-header {
+    font-size: 17px;
+  }
+
+  .main {
+    padding-top: 64px;
+  }
+  .main-content {
+    padding: 0 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .title-main {
+    font-size: 32px;
+  }
+  .subtitle-main {
+    font-size: 16px;
+  }
+
+  .card-list-infor {
+    max-width: 90%;
+  }
+  .contact-mobile .btn-back {
+    display: none;
+  }
+  .payment-item img {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ---------- 769px – 1024px (tablets landscape & small laptops) ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .title-header {
+    font-size: 60px;
+  }
+  .subtitle-header {
+    font-size: 18px;
+  }
+
+  .main {
+    padding-top: 72px;
+  }
+  .main-content {
+    padding: 0 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .title-main {
+    font-size: 36px;
+  }
+  .subtitle-main {
+    font-size: 18px;
+  }
+
+  .card {
+    width: calc(33.333% - 24px);
+    max-width: 360px;
+  }
+  .card-list-infor {
+    max-width: 80%;
+  }
+  .contact-mobile {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    display: none;
+  }
+  .contact-mobile .btn-back {
+    display: none;
+  }
+
+  .payment-methods {
+    width: 100%;
+  }
+  .payment-logo {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .payment-item {
+    width: 80px;
+    height: 80px;
+    padding: 0.9rem;
+  }
+  .payment-item img {
+    width: 56px;
+    height: 56px;
+  }
+  .payment-text p {
+    font-size: 0.85rem;
+  }
+}
+
+/* ---------- 1025px – 1440px (laptops & desktop standar) ---------- */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .title-header {
+    font-size: 72px;
+  }
+  .subtitle-header {
+    font-size: 20px;
+  }
+
+  .main-content {
+    padding: 0 28px;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .title-main {
+    font-size: 38px;
+  }
+  .contact-mobile {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    display: none;
+  }
+  .contact-mobile .btn-back {
+    display: none;
+  }
+
+  .payment-logo {
+    width: 90%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .payment-item {
+    width: 88px;
+    height: 88px;
+  }
+  .payment-item img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* ---------- ≥ 1441px (desktop lebar / 2K) ---------- */
+@media (min-width: 1441px) {
+  .title-header {
+    font-size: 84px;
+  }
+  .subtitle-header {
+    font-size: 22px;
+  }
+
+  .main-content {
+    padding: 0 32px;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .title-main {
+    font-size: 40px;
+  }
+
+  .contact-mobile {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    display: none;
+  }
+
+  .contact-mobile .btn-back {
+    display: none;
+  }
+  .payment-methods {
+    max-width: 1100px;
+  }
+  .payment-logo {
+    width: 70%;
+    gap: 2rem;
+  }
+  .payment-item {
+    width: 96px;
+    height: 96px;
+  }
+  .payment-item img {
+    width: 72px;
+    height: 72px;
+  }
+  .payment-methods .title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ---------- Prefer reduce motion (aksesibilitas) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
