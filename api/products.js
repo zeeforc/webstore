@@ -8,22 +8,12 @@ export default async function handler(req, res) {
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-key");
+
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  const { ADMIN_KEY } = process.env;
-  const needKey = !!ADMIN_KEY;
-  const keyHeader = (req.headers["x-admin-key"] || "").toString();
-
+  const { ADMIN_KEY, BLOB_READ_WRITE_TOKEN } = process.env;
+  const needKey = !!ADMIN_KEY; // kalau ADMIN_KEY gak diset, api jadi open (dev mode)
   const key = "assets/data/products.json";
-
-  // ==== PROTECT: semua request selain OPTIONS butuh ADMIN_KEY kalau di-set ====
-  if (needKey && req.method !== "OPTIONS") {
-    if (!keyHeader || keyHeader !== ADMIN_KEY) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized: invalid or missing admin key" });
-    }
-  }
 
   // ==== helper: buat file awal kalau belum ada ====
   async function ensureSeed() {
@@ -38,7 +28,7 @@ export default async function handler(req, res) {
       cacheControlMaxAge: 0,
       addRandomSuffix: false,
       allowOverwrite: true,
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: BLOB_READ_WRITE_TOKEN,
     });
     return seed;
   }
@@ -53,7 +43,7 @@ export default async function handler(req, res) {
     return await resp.json();
   }
 
-  // ==== GET ====
+  // ==== GET – PUBLIC (tidak butuh admin key) ====
   if (req.method === "GET") {
     try {
       const data = await readJson();
@@ -67,9 +57,15 @@ export default async function handler(req, res) {
     }
   }
 
-  // ==== PUT ====
+  // ==== PUT – HANYA ADMIN ====
   if (req.method === "PUT") {
     try {
+      if (needKey && (req.headers["x-admin-key"] || "") !== ADMIN_KEY) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized: invalid or missing admin key" });
+      }
+
       const raw = req.body;
       const incoming =
         typeof raw === "string" ? JSON.parse(raw || "{}") : raw || {};
@@ -81,7 +77,7 @@ export default async function handler(req, res) {
         cacheControlMaxAge: 0,
         addRandomSuffix: false,
         allowOverwrite: true,
-        token: process.env.BLOB_READ_WRITE_TOKEN,
+        token: BLOB_READ_WRITE_TOKEN,
       });
 
       return res.status(200).json({ ok: true, commitSha: "blob" });
